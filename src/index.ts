@@ -297,8 +297,49 @@ export class NovelCovid {
 
 	}
 
+	/**
+	 * @description - Returns all available countries to get apple mobility data
+	 * @returns {Promise<Array<String>>}
+	 */
+	async appleCountries(): Promise<Array<String>> {
+
+		return fetch(`${this.baseURL}/apple/countries`).then(json);
+
+	}
+
+	/**
+	 * @description - Returns all available subregions for a country or individual subregion to get apple mobility data
+	 * @param {string} country - Specific Country
+	 * @param {?string} subregion - Specific Subregion
+	 * @returns {Promise<AppleCountry | AppleSubregionData>}
+	 */
+	async appleCountry(country: string, subregion?: string): Promise<AppleCountry | AppleSubregionData> {
+
+		if (subregion) {
+			return fetch(`${this.baseURL}/apple/countries/${country}/${subregion}`).then(json);			
+		}
+
+		return fetch(`${this.baseURL}/apple/countries/${country}`).then(json);
+
+	}
 }
 
+export interface AppleSubregionData {
+	subregion: string;
+	data: Array<AppleMobilityData>;
+}
+export interface AppleMobilityData {
+	subregion_and_city: string;
+	geo_type: string;
+	date: string;
+	driving: number;
+	transit: number;
+	walking: number;
+}
+export interface AppleCountry {
+	country: string;
+	subregions: Array<string>;
+}
 export interface NytUSA {
 	date: string;
 	cases: number;
