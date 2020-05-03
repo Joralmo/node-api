@@ -236,5 +236,18 @@ const track = new NovelCovid();
 .nytUSA();
 ```
 
+### apple mobility data
+
+```js
+.appleCountries()
+```
+
+```js
+.appleCountry('country'); // for a country
+```
+
+```js
+.appleCountry('country', 'subregion'); // for a subregion
+```
 
 Thanks!
